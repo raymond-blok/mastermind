@@ -1,0 +1,66 @@
+* {
+	margin: 	0;
+	padding: 	0;
+}
+.board {
+	background-color: #AD7363;
+	width: 	99.5vw;
+	height: 99.5vh;}
+.row {
+	width: 99vw;
+	height: 6.25vh;
+	margin: 0.5%;
+}
+.box {
+	margin: 0.5%;
+	height: 5vh;
+	width: 5vh;
+	background-color: #885343;
+	border-radius: 50%;
+	display: inline-block;
+}
+.dot {
+	margin: 2vh 0 2vh 0;
+	height: 2vh;
+	width: 2vh;
+	background-color: #885343;
+	border-radius: 50%;
+	display: inline-block;
+}
+.color{
+	height: 99%;
+	width: 24%;
+	display: inline-block;
+}
+.selected-color {
+	height: 99%;
+	width: 80%;
+	background-color: red;
+}
+#guess {
+	font-size: 100px;
+}
+#red {
+	background-color: red;
+}
+#blue {
+	background-color: blue;
+}
+#orange {
+	background-color: orange;
+}
+#pink {
+	background-color: pink;
+}
+#white {
+	background-color: white
+}
+#purple {
+	background-color: purple;
+}
+#yellow {
+	background-color: yellow;
+}
+#green {
+	background-color: green;
+}
