@@ -59,10 +59,11 @@ function changeColor() {
 }
 
 function enableRow() {
-	const selectedRow = selectRow(currentRow, 'box');
-	for(let i = 0; i < boxAmount; i++) {
-		
-		selectedRow[i].addEventListener('click', changeColor);
+	if (currentRow !== rowAmount) {
+		const selectedRow = selectRow(currentRow, 'box');
+		for(let i = 0; i < boxAmount; i++) {
+			selectedRow[i].addEventListener('click', changeColor);
+		}
 	}
 }
 
@@ -76,13 +77,15 @@ function disableRow() {
 function compareCode() {
 	let boxesFilled = 0;
 	let dots = selectRow(currentRow, 'dot');
+	let answer = code.slice();
 	win = false;
 	for(let i = 0; i < boxAmount; i++) {
-		if(currentGuess[i] == code[i]) {
+		if(currentGuess[i] == answer[i]) {
 			console.log('number ' + (i + 1) + ' was correct');
 			dots[boxesFilled].style.backgroundColor = 'red'
 			boxesFilled += 1
 			currentGuess[i] = null;
+			answer[i] = null;
 		}
 	}
 	if (boxesFilled == boxAmount) {
@@ -90,12 +93,15 @@ function compareCode() {
 	}
 	if(!win){
 		for (let i = 0; i < boxAmount; i++) {
-			if (!(currentGuess[i] == null)) {
-				for (let x = 0; x < code.length; x++) {
-					if(currentGuess[i] == code[x]){
-						dots[boxesFilled].style.backgroundColor = 'orange'
-						boxesFilled += 1;
-						currentGuess[i] = null;
+			if (currentGuess[i] != null) {
+				for (let x = 0; x < answer.length; x++) {
+					if (answer[x] != null) {
+						if(currentGuess[i] == answer[x]){
+							dots[boxesFilled].style.backgroundColor = 'orange'
+							boxesFilled += 1;
+							currentGuess[i] = null;
+							answer[x] = null;
+						}
 					}
 				}
 			}
@@ -103,12 +109,24 @@ function compareCode() {
 	}
 }
 
+function endgame() {
+	if (win == true || currentRow == rowAmount) {
+		if (win == true) {
+			alert('congratulations you won');
+		} else {
+			alert('too bad you have lost');
+		}
+		disableRow();
+		guessButton.removeEventListener('click', nextRow);
+	}
+}
 function nextRow() {
 	compareCode();
 	disableRow();
 	currentRow += 1;
 	currentGuess = [];
 	enableRow();
+	endgame();
 }
 
 for (let i = 0; i < colors.length; i++) {
@@ -123,7 +141,7 @@ for (let i = 0; i < colors.length; i++) {
 }
 
 guessButton.addEventListener('click', nextRow);
-const code = createRandomArray();
+let code = createRandomArray();
 console.log(code);
 console.log(selectRow(1, 'box'));
 enableRow();
