@@ -40,6 +40,10 @@ let selectedColor = colors[0];
 let currentGuess = [];
 let win = false;
 
+function generateHtml() {
+	
+}
+
 function createRandomArray() {
 	let code = [];
 	for (let i = 0; i < boxAmount; i++){
@@ -128,20 +132,22 @@ function nextRow() {
 	enableRow();
 	endgame();
 }
+function startGame() {
+	for (let i = 0; i < colors.length; i++) {
+		let currentColor = colors[i];
+		const color = document.querySelector('#'+ currentColor.color);
 
-for (let i = 0; i < colors.length; i++) {
-	let currentColor = colors[i];
-	const color = document.querySelector('#'+ currentColor.color);
+		color.addEventListener('click', () => {
+			console.log(currentColor.color);
+			document.querySelector('.selected-color').style.backgroundColor = currentColor.color;
+			selectedColor = currentColor;
+		});
+	}
 
-	color.addEventListener('click', () => {
-		console.log(currentColor.color);
-		document.querySelector('.selected-color').style.backgroundColor = currentColor.color;
-		selectedColor = currentColor;
-	});
+	guessButton.addEventListener('click', nextRow);
+	let code = createRandomArray();
+	console.log(code);
+	console.log(selectRow(1, 'box'));
+	enableRow();
 }
-
-guessButton.addEventListener('click', nextRow);
-let code = createRandomArray();
-console.log(code);
-console.log(selectRow(1, 'box'));
-enableRow();
+startGame();
